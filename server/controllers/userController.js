@@ -44,7 +44,7 @@ class UserController {
     //  if(!id){
     //     return next(ApiError.badRequest('missing ID'))
     // }
-    //  res.json(id)
+     res.json({message:"All is working"})
     }
 }
 module.exports = new UserController()
