@@ -40,11 +40,8 @@ class UserController {
         return res.json({token})
     }
     async check(req,res,next){
-    //  const {id} =  req.query
-    //  if(!id){
-    //     return next(ApiError.badRequest('missing ID'))
-    // }
-     res.json({message:"All is working"})
+    const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        return res.json({token})
     }
 }
 module.exports = new UserController()
