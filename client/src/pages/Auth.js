@@ -32,7 +32,7 @@ function Auth() {
               </NavLink>
             </div> :
             <div>
-            Account exist.  
+            Account exists.  
             <NavLink to={LOGIN_ROUTE}>
               Enter
             </NavLink>
