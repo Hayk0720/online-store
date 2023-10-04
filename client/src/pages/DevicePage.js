@@ -1,21 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import star from '../assets/bStar.png'
+import {useParams} from 'react-router-dom'
+import { fetchOneDevice } from '../http/deviceAPI'
 
-function DevicePage() {
-         const device = {id:1, name:'S22', price: 25000, rating: 5, img:""}
-         const description = [
-          {id:1, title:"Operation system",description:'5gb'},
-          {id:2, title:"Camera",description:'12mp'},
-          {id:3, title:"Processor",description:'AMD 8'},
-          {id:4, title:"Cors",description:'5'},
-          {id:5, title:"Battery",description:'500'}
-         ]
+
+const  DevicePage = ( ) => {
+        //  const device = {id:1, name:'S22', price: 25000, rating: 5, img:""}
+        //  const description = [
+        //   {id:1, title:"Operation system",description:'5gb'},
+        //   {id:2, title:"Camera",description:'12mp'},
+        //   {id:3, title:"Processor",description:'AMD 8'},
+        //   {id:4, title:"Cors",description:'5'},
+        //   {id:5, title:"Battery",description:'500'}
+        //  ]
+        const [device,setDevice] = useState({info:[]})
+        const {id} = useParams()
+          useEffect(() => {
+            
+            fetchOneDevice(id).then(data => {
+              console.log('data',data)
+              setDevice(data)})
+          },[])
+          console.log("device",device)
+          console.log(id)
   return (
     <Container className='mt-3'>
       <Row>
       <Col md={4}>
-        <Image width={300} height={300} src={device.img}/>
+        <Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img}/>
       </Col>
       <Col md={4}>
         <div className='d-flex flex-column align-items-center'>
@@ -38,7 +51,7 @@ function DevicePage() {
       </Row>
       <Row className='d-flex flex-column m-3'>
         <h1>Configuration</h1>
-        {description.map((info,index) => 
+        {device.info.map((info,index) => 
           <div style={{backgroundColor:index % 2 === 0 ? 'lightgray' : 'transparent', padding:10}} key={info.id}>
             {info.title}:{info.description}
           </div>)}
